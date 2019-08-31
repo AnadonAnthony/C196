@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_TermInfo"
+        android:icon="@drawable/ic_info"
+        android:title="@string/txt_TermInfo" />
+
+    <item
+        android:id="@+id/nav_TermCourses"
+        android:icon="@drawable/ic_course"
+        android:title="@string/txt_TermCourses" />
+
+    <item
+        android:id="@+id/nav_TermNotes"
+        android:icon="@drawable/ic_note"
+        android:title="@string/txt_TermNotes" />
+
+</menu>

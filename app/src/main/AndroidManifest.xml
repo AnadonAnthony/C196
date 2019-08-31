@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.aanadon.android.anadonc196">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".editAssessmentNote"
+            android:label="@string/title_activity_edit_assessment_note"
+            android:parentActivityName=".editAssessment"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aanadon.android.anadonc196.editAssessment" />
+        </activity>
+        <activity
+            android:name=".editAssessment"
+            android:label="@string/title_activity_edit_assessment"
+            android:parentActivityName=".editCourse">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aanadon.android.anadonc196.editCourse" />
+        </activity>
+        <activity
+            android:name=".editCourse"
+            android:label="@string/title_activity_edit_course"
+            android:parentActivityName=".editTerm">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aanadon.android.anadonc196.editTerm" />
+        </activity>
+        <activity
+            android:name=".editTerm"
+            android:label="@string/title_activity_edit_term"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aanadon.android.anadonc196.MainActivity" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

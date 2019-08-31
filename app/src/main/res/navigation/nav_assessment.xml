@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_AssessmentNav"
+    app:startDestination="@+id/nav_AssessmentInfo">
+
+    <fragment
+        android:id="@+id/nav_AssessmentInfo"
+        android:name="com.aanadon.android.anadonc196.ui.assessmentInfo.assessInfoFragment"
+        android:label="@string/txt_AssessmentInfo"
+        tools:layout="@layout/frag_assessment_info" />
+
+    <fragment
+        android:id="@+id/nav_AssessmentNotes"
+        android:name="com.aanadon.android.anadonc196.ui.assessmentNotes.assesNotesFragment"
+        android:label="@string/txt_AssessmentNotes"
+        tools:layout="@layout/frag_assessment_notes" />
+</navigation>

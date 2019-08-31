@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_CourseNav"
+    app:startDestination="@+id/nav_CourseInfo">
+
+    <fragment
+        android:id="@+id/nav_CourseInfo"
+        android:name="com.aanadon.android.anadonc196.ui.courseInfo.courseInfoFragment"
+        android:label="@string/txt_CourseInfo"
+        tools:layout="@layout/frag_course_info" />
+
+    <fragment
+        android:id="@+id/nav_CourseAssessments"
+        android:name="com.aanadon.android.anadonc196.ui.courseAssessments.courseAssessmentsFragment"
+        android:label="@string/txt_CourseAssessments"
+        tools:layout="@layout/frag_course_assessments" />
+
+    <fragment
+        android:id="@+id/nav_CourseNotes"
+        android:name="com.aanadon.android.anadonc196.ui.courseNotes.courseNotesFragment"
+        android:label="@string/txt_CourseNotes"
+        tools:layout="@layout/frag_course_notes" />
+</navigation>

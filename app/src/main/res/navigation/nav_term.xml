@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_TermNav"
+    app:startDestination="@+id/nav_TermInfo">
+
+    <fragment
+        android:id="@+id/nav_TermInfo"
+        android:name="com.aanadon.android.anadonc196.ui.termInfo.termInfoFragment"
+        android:label="@string/txt_TermInfo"
+        tools:layout="@layout/frag_term_info" />
+
+    <fragment
+        android:id="@+id/nav_TermCourses"
+        android:name="com.aanadon.android.anadonc196.ui.termCourses.termCourseFragment"
+        android:label="@string/txt_TermCourses"
+        tools:layout="@layout/frag_term_courses" />
+
+    <fragment
+        android:id="@+id/nav_TermNotes"
+        android:name="com.aanadon.android.anadonc196.ui.termNotes.termNotesFragment"
+        android:label="@string/txt_TermNotes"
+        tools:layout="@layout/frag_term_notes" />
+</navigation>
