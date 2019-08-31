@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WGU Term Planning</string>
+    <string name="app_name">WGU C196</string>
     <string name="action_settings">Settings</string>
 
     <string name="title_activity_edit_term">Edit Term</string>

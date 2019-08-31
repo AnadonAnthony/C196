@@ -1,9 +1,15 @@
 package com.aanadon.android.anadonc196.models;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.Calendar;
 import java.util.Date;
 
+@Entity(tableName = "tbTerm")
 public class TermEntity {
+    @PrimaryKey(autoGenerate = true)
     private int termId;
 
     private String termTitle;
@@ -11,6 +17,7 @@ public class TermEntity {
     private Date termStart;
     private Date createDate;
 
+    @Ignore
     public TermEntity() {
     }
 

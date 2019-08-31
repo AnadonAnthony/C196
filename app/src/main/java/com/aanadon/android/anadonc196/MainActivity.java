@@ -7,10 +7,12 @@ import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.ui.adapters.TermItemAdapter;
 import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Samples;
+import com.aanadon.android.anadonc196.vms.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewTermList)
     RecyclerView _TermView;
 
+    private TermViewModel _TermModel;
     private TermItemAdapter _TermAdapter;
     private List<TermEntity> _TermList  = new ArrayList<>();
 
@@ -49,10 +52,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
+        initializeViewModel();
         initializeRecyclerView();
 
         Log.i(Constants.LOG_TAG, "Creating Sample Data");
-        _TermList.addAll(Samples.getSampleTerms());
+        _TermList.addAll(_TermModel.TermList);
+    }
+
+    private void initializeViewModel() {
+        _TermModel  = ViewModelProviders.of(this)
+            .get(TermViewModel.class);
     }
 
     private void initializeRecyclerView() {
