@@ -12,6 +12,24 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".editTermNote"
+            android:label="@string/title_activity_edit_term_note"
+            android:parentActivityName=".editTerm"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aanadon.android.anadonc196.editTerm" />
+        </activity>
+        <activity
+            android:name=".editCourseNote"
+            android:label="@string/title_activity_edit_course_note"
+            android:parentActivityName=".editCourse"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.aanadon.android.anadonc196.editCourse" />
+        </activity>
+        <activity
             android:name=".editAssessmentNote"
             android:label="@string/title_activity_edit_assessment_note"
             android:parentActivityName=".editAssessment"

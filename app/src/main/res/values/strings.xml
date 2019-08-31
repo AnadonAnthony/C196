@@ -19,4 +19,6 @@
 
     <string name="LogTag">AnadonC196</string>
     <string name="title_activity_edit_assessment_note">editAssessmentNote</string>
+    <string name="title_activity_edit_course_note">editCourseNote</string>
+    <string name="title_activity_edit_term_note">editTermNote</string>
 </resources>

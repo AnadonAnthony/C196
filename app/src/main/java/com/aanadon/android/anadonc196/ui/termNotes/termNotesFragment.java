@@ -1,5 +1,6 @@
 package com.aanadon.android.anadonc196.ui.termNotes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,22 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.aanadon.android.anadonc196.R;
+import com.aanadon.android.anadonc196.editTermNote;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class termNotesFragment extends Fragment {
+
+    @BindView(R.id.btnAddTermNote)
+    FloatingActionButton _AddTermNote;
+    @OnClick(R.id.btnAddTermNote)
+    public void onClick_AddTermNote()   {
+        Intent AddTermNote = new Intent(getActivity().getBaseContext(), editTermNote.class);
+        startActivity(AddTermNote);
+    }
 
     private termNotesViewModel notificationsViewModel;
 
@@ -24,6 +39,8 @@ public class termNotesFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(termNotesViewModel.class);
         View root = inflater.inflate(R.layout.frag_term_notes, container, false);
+
+        ButterKnife.bind(this, root);
 
         return root;
     }
