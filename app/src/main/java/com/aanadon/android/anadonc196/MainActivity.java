@@ -3,15 +3,23 @@ package com.aanadon.android.anadonc196;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.aanadon.android.anadonc196.models.TermEntity;
+import com.aanadon.android.anadonc196.ui.adapters.TermItemAdapter;
+import com.aanadon.android.anadonc196.utilities.Constants;
+import com.aanadon.android.anadonc196.utilities.Samples;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,12 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.btnAddTerm)
     FloatingActionButton _AddTerm;
-
     @OnClick(R.id.btnAddTerm)
     public void onClick_AddTerm()   {
         Intent TermIntent   = new Intent(this, editTerm.class);
         startActivity(TermIntent);
     }
+
+    @BindView(R.id.viewTermList)
+    RecyclerView _TermView;
+
+    private TermItemAdapter _TermAdapter;
+    private List<TermEntity> _TermList  = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +49,24 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
+        initializeRecyclerView();
+
+        Log.i(Constants.LOG_TAG, "Creating Sample Data");
+        _TermList.addAll(Samples.getSampleTerms());
+    }
+
+    private void initializeRecyclerView() {
+        Log.i(Constants.LOG_TAG, "Initializing the Recycler View");
+        LinearLayoutManager Layout  = new LinearLayoutManager(this);
+
+        _TermView.setHasFixedSize(true);
+        _TermView.setLayoutManager(Layout);
+
+        Log.i(Constants.LOG_TAG, "Creating the TermItem Adapter (@ MainActivity)");
+        _TermAdapter    = new TermItemAdapter(_TermList, this);
+        _TermView.setAdapter(_TermAdapter);
+
+        Log.i(Constants.LOG_TAG, "Recycler View Initialization Complete");
     }
 
     @Override
