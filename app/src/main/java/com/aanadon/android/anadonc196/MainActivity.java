@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,30 +53,37 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
-        initializeViewModel();
         initializeRecyclerView();
-
-        Log.i(Constants.LOG_TAG, "Creating Sample Data");
-        _TermList.addAll(_TermModel.TermList);
+        initializeViewModel();
     }
 
     private void initializeViewModel() {
+        final Observer<List<TermEntity>> TermObserver   = new Observer<List<TermEntity>>() {
+            @Override
+            public void onChanged(List<TermEntity> termEntities) {
+                _TermList.clear();
+                _TermList.addAll(termEntities);
+
+                if (null == _TermAdapter)   {
+                    _TermAdapter    = new TermItemAdapter(_TermList, MainActivity.this);
+                    _TermView.setAdapter(_TermAdapter);
+                }
+                else    {
+                    _TermAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+
         _TermModel  = ViewModelProviders.of(this)
             .get(TermViewModel.class);
+        _TermModel.TermList.observe(this, TermObserver);
     }
 
     private void initializeRecyclerView() {
-        Log.i(Constants.LOG_TAG, "Initializing the Recycler View");
-        LinearLayoutManager Layout  = new LinearLayoutManager(this);
-
         _TermView.setHasFixedSize(true);
+
+        LinearLayoutManager Layout  = new LinearLayoutManager(this);
         _TermView.setLayoutManager(Layout);
-
-        Log.i(Constants.LOG_TAG, "Creating the TermItem Adapter (@ MainActivity)");
-        _TermAdapter    = new TermItemAdapter(_TermList, this);
-        _TermView.setAdapter(_TermAdapter);
-
-        Log.i(Constants.LOG_TAG, "Recycler View Initialization Complete");
     }
 
     @Override
@@ -92,11 +100,24 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_AddSamples:
+                addSampleData();
+                return true;
+
+            case R.id.action_DeleteSamples:
+                deleteSampleData();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteSampleData() {
+        _TermModel.deleteSampleData();
+    }
+
+    private void addSampleData() {
+        _TermModel.addSampleData();
     }
 }

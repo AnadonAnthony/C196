@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.aanadon.android.anadonc196.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_AddSamples"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_AddSamples"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_DeleteSamples"
+        android:orderInCategory="100"
+        android:title="@string/action_DeleteSamples"
         app:showAsAction="never" />
 </menu>

@@ -1,24 +1,33 @@
 <resources>
     <string name="app_name">WGU C196</string>
-    <string name="action_settings">Settings</string>
 
+    //  Main Menu
+    <string name="action_AddSamples">Add Sample Data</string>
+    <string name="action_DeleteSamples">Delete Sample Data</string>
+
+    //  Primary Activity Menu Headings
     <string name="title_activity_edit_term">Edit Term</string>
     <string name="title_activity_edit_course">Edit Course</string>
     <string name="title_activity_edit_assessment">Edit Assessment</string>
 
+    //  Term-Specific (Bottom) Menu Headings
     <string name="txt_TermInfo">Term Info</string>
     <string name="txt_TermCourses">Term Course List</string>
     <string name="txt_TermNotes">Term Notes</string>
 
+    //  Course-Specific (Bottom) Menu Headings
     <string name="txt_CourseInfo">Course Info</string>
     <string name="txt_CourseAssessments">Assessments</string>
     <string name="txt_CourseNotes">Course Notes</string>
 
+    //  Assessment-Specific (Bottom) Menu Headings
     <string name="txt_AssessmentInfo">Assessment Info</string>
     <string name="txt_AssessmentNotes">Assessment Notes</string>
 
-    <string name="LogTag">AnadonC196</string>
+    //  Note Activity Headings
     <string name="title_activity_edit_assessment_note">editAssessmentNote</string>
     <string name="title_activity_edit_course_note">editCourseNote</string>
     <string name="title_activity_edit_term_note">editTermNote</string>
+
+    <string name="LogTag">AnadonC196</string>
 </resources>
