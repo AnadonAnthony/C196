@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.ui.adapters.TermItemAdapter;
-import com.aanadon.android.anadonc196.utilities.Constants;
-import com.aanadon.android.anadonc196.utilities.Samples;
 import com.aanadon.android.anadonc196.vms.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -17,7 +15,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -49,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.termToolbar);
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);

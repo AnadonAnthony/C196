@@ -10,11 +10,14 @@ import com.aanadon.android.anadonc196.db.AppRepository;
 import com.aanadon.android.anadonc196.models.TermEntity;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class TermViewModel extends AndroidViewModel {
 
     public LiveData<List<TermEntity>> TermList;
     private AppRepository _Repository;
+    private Executor _Executor = Executors.newSingleThreadExecutor();
 
     public TermViewModel(@NonNull Application application) {
         super(application);

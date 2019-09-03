@@ -54,6 +54,6 @@ public class termCourseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Term Course List");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("TermData Course List");
     }
 }

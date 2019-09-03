@@ -30,4 +30,5 @@
     <string name="title_activity_edit_term_note">editTermNote</string>
 
     <string name="LogTag">AnadonC196</string>
+    <string name="txt_TermDelete">Delete Term</string>
 </resources>

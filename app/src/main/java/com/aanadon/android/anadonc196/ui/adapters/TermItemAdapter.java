@@ -1,6 +1,7 @@
 package com.aanadon.android.anadonc196.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,22 +9,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aanadon.android.anadonc196.R;
+import com.aanadon.android.anadonc196.editTerm;
 import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Random;
-import com.aanadon.android.anadonc196.utilities.Samples;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class TermItemAdapter extends RecyclerView.Adapter<TermItemAdapter.ViewHolder> {
 
@@ -41,24 +42,30 @@ public class TermItemAdapter extends RecyclerView.Adapter<TermItemAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i(Constants.LOG_TAG, "Creating the TermItem ViewHolder");
-
         LayoutInflater Inflater = LayoutInflater.from(parent.getContext());
         View Root               = Inflater.inflate(R.layout.item_term, parent, false);
-        ViewHolder ViewHolder   = new ViewHolder(Root);
-        Log.i(Constants.LOG_TAG, "\t" + ViewHolder.toString());
-        Log.i(Constants.LOG_TAG, "TermItem ViewHolder Created");
         return new ViewHolder(Root);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.i(Constants.LOG_TAG, "Binding the TermItem ViewHolder");
-
         final TermEntity Term   = _TermList.get(position);
         holder._TitleText.setText(Term.getTermTitle());
+
         holder._CourseCount.setText(String.format("%02d", Random._Rand.nextInt(3) + 2));
-        holder._StartText.setText(new SimpleDateFormat("yyyy-MM-dd").format(Term.getTermStart()));
+
+        Date Start  = Term.getTermStart();
+        if (null != Start)
+            holder._StartText.setText(new SimpleDateFormat("MMM. dd yyyy").format(Start));
+
+        holder.CardLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent EditTermIntent   = new Intent(_Context, editTerm.class);
+                EditTermIntent.putExtra("termId", Term.getTermId());
+                _Context.startActivity(EditTermIntent);
+            }
+        });
     }
 
     @Override
@@ -74,12 +81,13 @@ public class TermItemAdapter extends RecyclerView.Adapter<TermItemAdapter.ViewHo
         TextView _StartText;
         @BindView(R.id.txt_CourseCount)
         TextView _CourseCount;
+        @BindView(R.id.topCardLayout)
+        ConstraintLayout CardLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
-            Log.i(Constants.LOG_TAG, "ViewHolder Bindings Created (w/ Butterknife)");
         }
     }
 }

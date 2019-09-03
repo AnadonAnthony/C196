@@ -50,6 +50,6 @@ public class termNotesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Term Notes");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("TermData Notes");
     }
 }

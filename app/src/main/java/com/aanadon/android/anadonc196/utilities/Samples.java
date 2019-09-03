@@ -7,12 +7,10 @@ import com.aanadon.android.anadonc196.models.TermEntity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Samples {
     public static List<TermEntity> getSampleTerms() {
-        Log.i(Constants.LOG_TAG, "Creating Sample Term Data (Samples Class)");
         List<TermEntity> TermList   = new ArrayList<>();
 
         Calendar Today  = Calendar.getInstance();
@@ -21,7 +19,6 @@ public class Samples {
         Start.set(Calendar.DATE, 1);
 
         for (int Id = 0; Id < 8; Id++) {
-            Log.i(Constants.LOG_TAG, "Creating Sample Term : " + Id);
             TermEntity Term = new TermEntity();
 
             Term.setTermId(Id);
