@@ -31,4 +31,8 @@
 
     <string name="LogTag">AnadonC196</string>
     <string name="txt_TermDelete">Delete Term</string>
+    <string name="txtGoodToast">%1$s (%2$s) Successfully Saved</string>
+    <string name="txtTerm">Term</string>
+    <string name="txtBadToast">Unable to save the %1$s Object (%2$s)</string>
+    <string name="txtDeleteToast">Successfully Deleted %1$s Object (%2$s).</string>
 </resources>

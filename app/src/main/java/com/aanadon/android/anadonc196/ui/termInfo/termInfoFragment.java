@@ -1,11 +1,16 @@
 package com.aanadon.android.anadonc196.ui.termInfo;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,13 +35,30 @@ import java.util.Calendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class termInfoFragment extends Fragment {
 
+    //  <editor-fold default-state="collapsed" desc="Butterknife Injections">
     @BindView(R.id.txtTermTitle)
     TextView _Title;
+    @OnTextChanged(R.id.txtTermTitle)
+    public void onTextChanged(CharSequence text)    {
+        //  Step 01) Retrieve the label name ensure it contains AT LEAST 01 character(s)
+        String NewText  = text.toString().trim();
+        _TitleOK        = !TextUtils.isEmpty(NewText);
+
+        if (_TitleOK)
+            _TitleLabel.setTextColor(Color.parseColor("#C0C0C0"));
+        else
+            _TitleLabel.setTextColor(Color.parseColor("#FF0000"));
+    }
+    @BindView(R.id.lblTermTitle)
+    TextView _TitleLabel;
     @BindView(R.id.txtStartDate)
     TextView _Start;
+    @BindView(R.id.lblTermStart)
+    TextView _StartLabel;
     @BindView(R.id.txtEndDate)
     TextView _EndDate;
     @BindView(R.id.btnDeleteTerm)
@@ -44,21 +66,96 @@ public class termInfoFragment extends Fragment {
     @OnClick(R.id.btnDeleteTerm)
     public void onClick_DeleteTerm()    {
         if (null != _Data)  {
+            _Deleting   = true;
             _ViewModel.deleteTerm(_Data);
-
-            //  Clear the title text. This ensures that the term is not 'saved' when leaving the
-            //  activity.
-            _Title.setText("");
 
             // TODO: 9/3/2019 Ensure there are no courses attached to this term prior to delete
 
             getActivity().finish();
         }
     }
+    @OnClick(R.id.btnStartDate)
+    public void onClick_SelectDate()    {
+        Calendar Date   = Calendar.getInstance();
+        int Year        = Date.get(Calendar.YEAR);
+        int Month       = Date.get(Calendar.MONTH);
 
+        DatePickerDialog Dialog = new DatePickerDialog(getContext(),
+            new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    Calendar Start  = Calendar.getInstance();
+                    Start.set(year, month,1);
+                    _Start.setText(Utilities.toString(Start.getTime()));
+
+                    Start.add(Calendar.MONTH, 6);
+                    _EndDate.setText(Utilities.toString(Start.getTime()));
+                }
+            }, Year, Month, 1);
+        Dialog.show();
+    }
+    //  </editor-fold>
+
+    //  <editor-fold default-state="collapsed" desc="Member Variable Declrations">
     private TermEntity _Data;
+
     private boolean _NewTerm    = false;
+    private boolean _StartOK    = false;
+    private boolean _TitleOK    = false;
+    private boolean _Deleting   = false;
+
     private termInfoViewModel _ViewModel;
+    //  </editor-fold>
+
+    private void saveAndReturn() {
+
+        String Title    = _Title.getText().toString().trim();
+        String DateText = _Start.getText().toString().trim();
+
+        if (Title.length() > 0 && DateText.length() >= 8) {
+            if (!_Deleting) {
+
+                Calendar Start = Calendar.getInstance();
+                Start.setTime(Utilities.parseDate(DateText));
+
+                TermEntity Temp = new TermEntity();
+                Temp.setTermTitle(_Title.getText().toString().trim());
+
+                Temp.setTermStart(Start.getTime());
+
+                _ViewModel.saveTerm(Temp);
+                Utilities.ButterToast(this,
+                    String.format(getString(R.string.txtGoodToast),
+                        getString(R.string.txtTerm),
+                        Title));
+            }
+            else    {
+                Utilities.ButterToast(this,
+                    String.format(getString(R.string.txtDeleteToast),
+                        getString(R.string.txtTerm),
+                        Title));
+            }
+        }
+        else    {
+            Utilities.BurnToast(this,
+                String.format(getString(R.string.txtBadToast),
+                    getString(R.string.txtTerm),
+                    Title));
+        }
+    }
+
+    private void initializeViewModel() {
+        _ViewModel  = ViewModelProviders.of(this).get(termInfoViewModel.class);
+        _ViewModel.TermData.observe(this, new Observer<TermEntity>() {
+            @Override
+            public void onChanged(final TermEntity termEntity) {
+                _Data   = termEntity;
+                _Title.setText(termEntity.getTermTitle());
+                _Start.setText(Utilities.toString(termEntity.getTermStart()));
+                _EndDate.setText("(" + Utilities.toString(termEntity.getTermEnd()) + ")");
+            }
+        });
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,15 +169,32 @@ public class termInfoFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onDetach() {
+        super.onDetach();
+        saveAndReturn();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int ItemId  = item.getItemId();
+
+        switch (ItemId) {
+            case android.R.id.home:
+                saveAndReturn();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         Log.i(Constants.LOG_TAG, "termInfoFragment.onActivityCreated");
 
         ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (null != Bar) {
-            Bar.setTitle("TermData Information");
+            Bar.setTitle("Term Information");
             Bar.setDisplayHomeAsUpEnabled(true);
             Bar.setHomeAsUpIndicator(R.drawable.ic_save);
         }
@@ -104,55 +218,5 @@ public class termInfoFragment extends Fragment {
             _ViewModel.fetchTerm(termId);
             final TermEntity ThisTerm = _ViewModel.TermData.getValue();
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        saveAndReturn();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int ItemId  = item.getItemId();
-
-        switch (ItemId) {
-            case android.R.id.home:
-                saveAndReturn();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void saveAndReturn() {
-
-        String Title    = _Title.getText().toString().trim();
-        String DateText = _Start.getText().toString().trim();
-
-        if (Title.length() > 0 && DateText.length() >= 8) {
-
-            Calendar Start = Calendar.getInstance();
-            Start.setTime(Utilities.parseDate(DateText));
-
-            TermEntity Temp = new TermEntity();
-            Temp.setTermTitle(_Title.getText().toString().trim());
-
-            Temp.setTermStart(Start.getTime());
-
-            _ViewModel.saveTerm(Temp);
-        }
-    }
-
-    private void initializeViewModel() {
-        _ViewModel  = ViewModelProviders.of(this).get(termInfoViewModel.class);
-        _ViewModel.TermData.observe(this, new Observer<TermEntity>() {
-            @Override
-            public void onChanged(final TermEntity termEntity) {
-                _Data   = termEntity;
-                _Title.setText(termEntity.getTermTitle());
-                _Start.setText(Utilities.toString(termEntity.getTermStart()));
-                _EndDate.setText("(" + Utilities.toString(termEntity.getTermEnd()) + ")");
-            }
-        });
     }
 }

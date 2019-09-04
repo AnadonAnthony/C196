@@ -18,7 +18,7 @@ public class Samples {
         Start.add(Calendar.MONTH, -12);
         Start.set(Calendar.DATE, 1);
 
-        for (int Id = 0; Id < 8; Id++) {
+        for (int Id = 0; Id < 4; Id++) {
             TermEntity Term = new TermEntity();
 
             Term.setTermId(Id);
