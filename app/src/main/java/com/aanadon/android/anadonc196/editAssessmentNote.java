@@ -15,7 +15,7 @@ public class editAssessmentNote extends AppCompatActivity {
 
     @BindView(R.id.txtDate)
     TextView _Date;
-    @BindView(R.id.txtNote)
+    @BindView(R.id.txtNoteItemText)
     TextView _Note;
     @BindView(R.id.txtUserName)
     TextView _UserName;

@@ -19,6 +19,14 @@ public class TermEntity {
 
     @Ignore
     public TermEntity() {
+        createDate  = new Date();
+    }
+
+    @Ignore
+    public TermEntity(String termTitle, Date termStart) {
+        this.termTitle  = termTitle;
+        this.termStart  = termStart;
+        this.createDate = new Date();
     }
 
     public TermEntity(int termId, String termTitle, Date termStart, Date createDate) {
@@ -66,6 +74,7 @@ public class TermEntity {
      * date six (6) months from today is returned.
      * @return
      */
+    @Ignore
     public Date getTermEnd()    {
         Calendar EndDate    = Calendar.getInstance();
 
@@ -81,8 +90,11 @@ public class TermEntity {
     public String toString() {
         return "TermEntity{" +
                 "termId=" + termId +
+                ", createDate='" + createDate + '\'' +
                 ", termTitle='" + termTitle + '\'' +
                 ", termStart=" + termStart +
                 '}';
     }
+
+    public static final String PRIMARY_KEY  = "termId";
 }

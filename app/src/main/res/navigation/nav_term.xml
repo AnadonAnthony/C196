@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_TermNotes"
-        android:name="com.aanadon.android.anadonc196.ui.termNotes.termNotesFragment"
+        android:name="com.aanadon.android.anadonc196.ui.termNotes.frag_TermNote"
         android:label="@string/txt_TermNotes"
         tools:layout="@layout/frag_term_notes" />
 </navigation>

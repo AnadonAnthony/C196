@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aanadon.android.anadonc196">
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".editTermNote"
             android:label="@string/title_activity_edit_term_note"
+            android:launchMode="singleTask"
             android:parentActivityName=".editTerm"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -57,6 +60,7 @@
         <activity
             android:name=".editTerm"
             android:label="@string/title_activity_edit_term"
+            android:launchMode="singleTask"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -74,4 +78,5 @@
         </activity>
     </application>
 
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 </manifest>

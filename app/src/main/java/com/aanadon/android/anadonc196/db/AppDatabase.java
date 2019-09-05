@@ -8,9 +8,10 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.aanadon.android.anadonc196.models.TermEntity;
+import com.aanadon.android.anadonc196.models.TermNoteEntity;
 import com.aanadon.android.anadonc196.utilities.Converter_Date;
 
-@Database(entities = {TermEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {TermEntity.class, TermNoteEntity.class}, version = 2, exportSchema = false)
 @TypeConverters(Converter_Date.class)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME    = "C196.db";
@@ -21,6 +22,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     // TODO: 8/31/2019 ONE FOR EACH DAO INSTANCE
     public abstract TermDAO TermDAO();
+    public abstract TermNoteDAO TermNoteDAO();
 
     public static AppDatabase getInstance(Context pContext) {
         if (null == _Instance) {
@@ -28,7 +30,9 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (null == _Instance)  {
                     _Instance = Room.databaseBuilder(pContext.getApplicationContext(),
                             AppDatabase.class,
-                            DATABASE_NAME).build();
+                            DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
+                            .build();
                 }
             }
         }

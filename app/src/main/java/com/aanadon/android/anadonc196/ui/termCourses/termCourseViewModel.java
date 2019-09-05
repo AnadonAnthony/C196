@@ -11,17 +11,7 @@ import butterknife.BindView;
 
 public class termCourseViewModel extends ViewModel {
 
-    @BindView(R.id.btnAddCourse)
-    FloatingActionButton _AddCourse;
-
-    private MutableLiveData<String> mText;
 
     public termCourseViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
     }
 }

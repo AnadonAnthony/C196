@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_TermMenu">
 
     <item
         android:id="@+id/nav_TermInfo"
         android:icon="@drawable/ic_info"
-        android:title="@string/txt_TermInfo" />
+        android:title="@string/txt_TermInfo"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/nav_TermCourses"
         android:icon="@drawable/ic_course"
-        android:title="@string/txt_TermCourses" />
+        android:title="@string/txt_TermCourses"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/nav_TermNotes"
         android:icon="@drawable/ic_note"
-        android:title="@string/txt_TermNotes" />
+        android:title="@string/txt_TermNotes"
+        app:showAsAction="never" />
 
 </menu>

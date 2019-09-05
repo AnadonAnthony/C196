@@ -2,7 +2,6 @@ package com.aanadon.android.anadonc196.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.editTerm;
 import com.aanadon.android.anadonc196.models.TermEntity;
-import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Random;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,17 +23,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TermItemAdapter extends RecyclerView.Adapter<TermItemAdapter.ViewHolder> {
+public class adapter_TermItem extends RecyclerView.Adapter<adapter_TermItem.ViewHolder> {
 
     private final Context _Context;
     private final List<TermEntity> _TermList;
 
-    public TermItemAdapter(List<TermEntity> _TermList, Context _Context) {
-        Log.i(Constants.LOG_TAG, "Constructing the TermItemAdapter");
-
+    public adapter_TermItem(List<TermEntity> _TermList, Context _Context) {
         this._TermList = _TermList;
         this._Context = _Context;
-        Log.i(Constants.LOG_TAG, "TermItemAdapter Constructed");
     }
 
     @NonNull
@@ -50,19 +44,21 @@ public class TermItemAdapter extends RecyclerView.Adapter<TermItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final TermEntity Term   = _TermList.get(position);
-        holder._TitleText.setText(Term.getTermTitle());
 
+        holder._TitleText.setText(Term.getTermTitle());
         holder._CourseCount.setText(String.format("%02d", Random._Rand.nextInt(3) + 2));
 
         Date Start  = Term.getTermStart();
         if (null != Start)
             holder._StartText.setText(new SimpleDateFormat("MMM. dd yyyy").format(Start));
 
+        //  If the CardLayout was clicked on, then attach the referenced termId as an extra
         holder.CardLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent EditTermIntent   = new Intent(_Context, editTerm.class);
-                EditTermIntent.putExtra("termId", Term.getTermId());
+                EditTermIntent.putExtra(TermEntity.PRIMARY_KEY,
+                    Term.getTermId());
                 _Context.startActivity(EditTermIntent);
             }
         });

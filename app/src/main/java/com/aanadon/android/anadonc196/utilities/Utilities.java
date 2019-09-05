@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -64,6 +65,17 @@ public class Utilities {
                 PorterDuff.Mode.SRC_IN);
 
         Toaster.show();
+    }
+    //  </editor-fold>
+
+    //  <editor-fold default-state="collapsed" desc="Text Colorizing Methods">
+    public static void ColorLabel(TextView pLabel, boolean pTextOK) {
+        if (null != pLabel) {
+            if (pTextOK)
+                pLabel.setTextColor(Color.GRAY);
+            else
+                pLabel.setTextColor(Color.RED);
+        }
     }
     //  </editor-fold>
 }

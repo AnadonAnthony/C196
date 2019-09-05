@@ -1,22 +1,33 @@
 package com.aanadon.android.anadonc196;
 
+import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.aanadon.android.anadonc196.models.TermEntity;
-import com.aanadon.android.anadonc196.ui.adapters.TermItemAdapter;
-import com.aanadon.android.anadonc196.vms.TermViewModel;
+import com.aanadon.android.anadonc196.ui.adapters.adapter_TermItem;
+import com.aanadon.android.anadonc196.utilities.Constants;
+import com.aanadon.android.anadonc196.vms.vm_Term;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewTermList)
     RecyclerView _TermView;
 
-    private TermViewModel _TermModel;
-    private TermItemAdapter _TermAdapter;
+    private vm_Term _TermModel;
+    private adapter_TermItem _TermAdapter;
     private List<TermEntity> _TermList  = new ArrayList<>();
 
     @Override
@@ -52,6 +63,41 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initializeRecyclerView();
         initializeViewModel();
+        requestPermission();
+    }
+
+    private static final int REQ_GET_ACCOUNTS   = 128;
+    private static String _Username = "UNKNOWN";
+    public static String getUsername()  {
+        return _Username;
+    }
+
+    private void requestPermission() {
+
+        Context AppContext  = getApplicationContext();
+
+        if (ContextCompat.checkSelfPermission(AppContext, Manifest.permission.GET_ACCOUNTS)
+            != PackageManager.PERMISSION_GRANTED)   {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.GET_ACCOUNTS))  {
+                Toast.makeText(getApplicationContext(),
+                    "Your account is used to determine the UserName stored with each Note.",
+                    Toast.LENGTH_SHORT).show();
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.GET_ACCOUNTS},
+                        REQ_GET_ACCOUNTS);
+            }
+            else    {
+                ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.GET_ACCOUNTS},
+                    REQ_GET_ACCOUNTS);
+            }
+        }
+        else    {
+            _Username   = getEmailId(getApplicationContext());
+        }
     }
 
     private void initializeViewModel() {
@@ -62,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 _TermList.addAll(termEntities);
 
                 if (null == _TermAdapter)   {
-                    _TermAdapter    = new TermItemAdapter(_TermList, MainActivity.this);
+                    _TermAdapter    = new adapter_TermItem(_TermList, MainActivity.this);
                     _TermView.setAdapter(_TermAdapter);
                 }
                 else    {
@@ -72,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         _TermModel  = ViewModelProviders.of(this)
-            .get(TermViewModel.class);
+            .get(vm_Term.class);
         _TermModel.TermList.observe(this, TermObserver);
     }
 
@@ -81,6 +127,29 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayoutManager Layout  = new LinearLayoutManager(this);
         _TermView.setLayoutManager(Layout);
+    }
+
+    private static String getEmailId(Context pContext)  {
+        AccountManager Manager  = AccountManager.get(pContext);
+        Account[] Accounts      = Manager.getAccountsByType("google.com");
+        Account Account;
+        if (Accounts.length > 0)
+            Account = Accounts[0];
+        else
+            return "student@wgu.edu";
+        return Account.name;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode)    {
+            case REQ_GET_ACCOUNTS:
+                if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED)    {
+                    _Username   = getEmailId(getApplicationContext());
+                }
+        }
     }
 
     @Override
