@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -123,7 +124,7 @@ public class termInfoFragment extends Fragment {
     private Executor _Executor  = Executors.newSingleThreadExecutor();
     //  </editor-fold>
 
-    private void saveAndReturn() {
+    private void saveTerm() {
 
         if (IsReadyToSave())    {
             TermEntity Term = _Data.getValue();
@@ -190,9 +191,7 @@ public class termInfoFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        saveAndReturn();
-
-        // TODO: 9/3/2019 Look for TermNotes & Courses References with termId's of -1
+        saveTerm();
         super.onDetach();
     }
 
@@ -235,6 +234,22 @@ public class termInfoFragment extends Fragment {
             NavMenu.findItem(R.id.nav_TermCourses).setVisible(false);
         }
         else    {
+
+            //  Retrieve the bottom navigational menu and add an OnClick listener event that saves
+            //  any changes to the term before switching fragments.
+            BottomNavigationView BotView    = getActivity().findViewById(R.id.nav_TermView);
+            Menu NavMenu    = BotView.getMenu();
+            for (int i = 0; i < NavMenu.size(); i++)    {
+                MenuItem Item   = NavMenu.getItem(i);
+                Item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        saveTerm();
+                        return false;
+                    }
+                });
+            }
+
             Bundle Extras       = getActivity().getIntent().getExtras();
             final int termId    = Extras.getInt("termId");
             _Executor.execute(new Runnable() {

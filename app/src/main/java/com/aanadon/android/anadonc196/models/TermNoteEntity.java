@@ -8,6 +8,9 @@ import java.util.Date;
 
 @Entity(tableName = "tbTermNote")
 public class TermNoteEntity {
+
+    public static final String PRIMARY_KEY  = "noteId";
+
     @PrimaryKey(autoGenerate = true)
     private int noteId;
     private int termId;

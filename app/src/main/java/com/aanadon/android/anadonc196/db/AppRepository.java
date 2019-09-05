@@ -1,12 +1,14 @@
 package com.aanadon.android.anadonc196.db;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Samples;
 
 import java.util.Collection;
@@ -85,6 +87,17 @@ public class AppRepository {
     //  </editor-fold>
 
     //  <editor-fold default-state="collapsed" desc="Term Note Methods">
+    public void deleteTermNote(final TermNoteEntity note) {
+        if (null != note)   {
+            _Executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    _Db.TermNoteDAO().deleteTermNote(note);
+                }
+            });
+        }
+    }
+
     public void insertTermNote(final TermNoteEntity note)   {
         _Executor.execute(new Runnable() {
             @Override
@@ -94,6 +107,10 @@ public class AppRepository {
         });
     }
 
+    public TermNoteEntity fetchTermNoteData(int pNoteId)    {
+        return _Db.TermNoteDAO().getTermNoteById(pNoteId);
+    }
+
     public LiveData<List<TermNoteEntity>> fetchTermNotesData()  {
         return _Db.TermNoteDAO().getAllTermNotes();
     }
@@ -101,5 +118,6 @@ public class AppRepository {
     public LiveData<List<TermNoteEntity>> fetchTermNotesData(int pTermId)   {
         return _Db.TermNoteDAO().getTermNotes(pTermId);
     }
+
     //  </editor-fold>
 }

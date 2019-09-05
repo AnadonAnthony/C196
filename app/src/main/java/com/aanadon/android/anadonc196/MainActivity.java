@@ -6,6 +6,8 @@ import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.aanadon.android.anadonc196.models.TermEntity;
@@ -15,15 +17,20 @@ import com.aanadon.android.anadonc196.vms.vm_Term;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +43,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity
+    extends AppCompatActivity {
 
     @BindView(R.id.btnAddTerm)
     FloatingActionButton _AddTerm;
@@ -67,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static final int REQ_GET_ACCOUNTS   = 128;
+    private static final int REQ_READ_PROFILE   = 64;
+    private static final int REQ_READ_CONTACTS  = 32;
+
     private static String _Username = "UNKNOWN";
     public static String getUsername()  {
         return _Username;

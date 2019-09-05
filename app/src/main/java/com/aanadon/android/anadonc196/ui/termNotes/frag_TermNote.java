@@ -42,14 +42,14 @@ public class frag_TermNote extends Fragment {
 
     @BindView(R.id.btnAddTermNote)
     FloatingActionButton _AddTermNote;
+    @BindView(R.id.viewTermNotesRecycler)
+    RecyclerView _NoteView;
+
     @OnClick(R.id.btnAddTermNote)
     public void onClick_AddTermNote()   {
         Intent AddTermNote = new Intent(getActivity().getBaseContext(), editTermNote.class);
         startActivity(AddTermNote);
     }
-
-    @BindView(R.id.viewTermNotesRecycler)
-    RecyclerView _NoteView;
 
     private AppRepository _Repository;
     private vm_TermNote _ViewModel;

@@ -3,6 +3,7 @@ package com.aanadon.android.anadonc196;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.aanadon.android.anadonc196.db.AppRepository;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
 import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Utilities;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Date;
 import java.util.concurrent.Executor;
@@ -22,6 +24,7 @@ import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
 public class editTermNote extends AppCompatActivity {
@@ -30,8 +33,25 @@ public class editTermNote extends AppCompatActivity {
     TextView _Date;
     @BindView(R.id.txtNoteItemText)
     TextView _Text;
-    @BindView(R.id.txtUserName)
+    @BindView(R.id.txtNoteItemUser)
     TextView _User;
+    @BindView(R.id.btnNoteItemDelete)
+    FloatingActionButton _Delete;
+    @BindView(R.id.btnNoteItemShare)
+    FloatingActionButton _Share;
+
+    @OnClick(R.id.btnNoteItemShare)
+    public void onClick_Share() {
+        // TODO: 9/5/2019 Add Share note options action
+    }
+    @OnClick(R.id.btnNoteItemDelete)
+    public void onClick_Delete()    {
+        if (!_NewNote) {
+            TermNoteEntity Note = _Data.getValue();
+            _Repository.deleteTermNote(Note);
+            finish();
+        }
+    }
     @OnTextChanged(R.id.txtNoteItemText)
     public void onTextChanged_NoteText(CharSequence pText)  {
         //  Step 01) Retrieve the text field
@@ -70,12 +90,10 @@ public class editTermNote extends AppCompatActivity {
             Note.setNoteText(_Text.getText().toString().trim());
 
             _Repository.insertTermNote(Note);
-            Log.i(Constants.LOG_TAG,
-                "→\tTerm Note Saved");
         }
     }
 
-    private void initializeActivity() {
+    private void init_EditTermNote() {
         _Repository = AppRepository.getInstance(getBaseContext());
 
         Bundle Extras   = getIntent().getExtras();
@@ -86,9 +104,22 @@ public class editTermNote extends AppCompatActivity {
             _Date.setText(Utilities.toString(new Date()));
             _User.setText("- " + MainActivity.getUsername());
             getSupportActionBar().setTitle(getString(R.string.txt_CreateTermNote));
+
+            _Share.setVisibility(View.INVISIBLE);
+            _Delete.setVisibility(View.INVISIBLE);
         }
-        else
+        else {
             getSupportActionBar().setTitle(getString(R.string.txt_EditTermNote));
+            final int NoteId  = Extras.getInt(TermNoteEntity.PRIMARY_KEY);
+
+            _Executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    TermNoteEntity Note = _Repository.fetchTermNoteData(NoteId);
+                    _Data.postValue(Note);
+                }
+            });
+        }
 
         _Data.observe(this, new Observer<TermNoteEntity>() {
             @Override
@@ -119,7 +150,7 @@ public class editTermNote extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        initializeActivity();
+        init_EditTermNote();
     }
 
     @Override

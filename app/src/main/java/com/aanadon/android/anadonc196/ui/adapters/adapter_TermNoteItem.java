@@ -1,16 +1,21 @@
 package com.aanadon.android.anadonc196.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aanadon.android.anadonc196.R;
+import com.aanadon.android.anadonc196.editTermNote;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Utilities;
 
 import java.util.List;
@@ -40,8 +45,6 @@ public class adapter_TermNoteItem extends RecyclerView.Adapter<adapter_TermNoteI
         return new ViewHolder(Root);
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final TermNoteEntity Note   = _Notes.get(position);
@@ -49,6 +52,15 @@ public class adapter_TermNoteItem extends RecyclerView.Adapter<adapter_TermNoteI
         holder._Text.setText(Note.getNoteText());
         holder._User.setText(Note.getUserName());
         holder._Date.setText(Utilities.toString(Note.getCreateDate()));
+        holder._Card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent AddTermNote = new Intent(_Context, editTermNote.class);
+                AddTermNote.putExtra(TermNoteEntity.PRIMARY_KEY,
+                    Note.getNoteId());
+                _Context.startActivity(AddTermNote);
+            }
+        });
     }
 
     @Override
@@ -63,6 +75,8 @@ public class adapter_TermNoteItem extends RecyclerView.Adapter<adapter_TermNoteI
         TextView _Text;
         @BindView(R.id.item_NoteUser)
         TextView _User;
+        @BindView(R.id.item_NoteCard)
+        CardView _Card;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
