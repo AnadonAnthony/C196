@@ -46,42 +46,30 @@ import butterknife.OnClick;
 public class MainActivity
     extends AppCompatActivity {
 
+    //  <editor-fold defaultstate="collapsed" des="Butterknife Injections">
     @BindView(R.id.btnAddTerm)
     FloatingActionButton _AddTerm;
+    @BindView(R.id.viewTermList)
+    RecyclerView _TermView;
+
     @OnClick(R.id.btnAddTerm)
     public void onClick_AddTerm()   {
         Intent TermIntent   = new Intent(this, editTerm.class);
         startActivity(TermIntent);
     }
+    //  </editor-fold>
 
-    @BindView(R.id.viewTermList)
-    RecyclerView _TermView;
-
+    //  <editor-fold defaultstate="collapsed" des="Member Variables">
     private vm_Term _TermModel;
     private adapter_TermItem _TermAdapter;
     private List<TermEntity> _TermList  = new ArrayList<>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.termToolbar);
-        setSupportActionBar(toolbar);
-
-        ButterKnife.bind(this);
-        initializeRecyclerView();
-        initializeViewModel();
-        requestPermission();
-    }
-
     private static final int REQ_GET_ACCOUNTS   = 128;
-    private static final int REQ_READ_PROFILE   = 64;
-    private static final int REQ_READ_CONTACTS  = 32;
-
     private static String _Username = "UNKNOWN";
     public static String getUsername()  {
         return _Username;
     }
+    //  </editor-fold>
 
     private void requestPermission() {
 
@@ -152,7 +140,22 @@ public class MainActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = findViewById(R.id.termToolbar);
+        setSupportActionBar(toolbar);
+
+        ButterKnife.bind(this);
+        initializeRecyclerView();
+        initializeViewModel();
+        requestPermission();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+       @NonNull String[] permissions,
+       @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode)    {
             case REQ_GET_ACCOUNTS:
@@ -165,16 +168,12 @@ public class MainActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch (id) {

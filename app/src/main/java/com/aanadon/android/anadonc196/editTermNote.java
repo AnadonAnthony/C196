@@ -1,5 +1,6 @@
 package com.aanadon.android.anadonc196;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import butterknife.OnTextChanged;
 
 public class editTermNote extends AppCompatActivity {
 
+    //  <editor-fold defaultstate="collapsed" des="Butterknife Injections">
     @BindView(R.id.txtNoteItemDate)
     TextView _Date;
     @BindView(R.id.txtNoteItemText)
@@ -65,7 +67,9 @@ public class editTermNote extends AppCompatActivity {
 
         Utilities.ColorLabel(_Text, _TextOK);
     }
+    //  </editor-fold>
 
+    //  <editor-fold defaultstate="collapsed" des="Member Variables">
     private AppRepository _Repository;
     private Executor _Executor  = Executors.newSingleThreadExecutor();
     private MutableLiveData<TermNoteEntity> _Data   = new MutableLiveData<>();
@@ -73,6 +77,7 @@ public class editTermNote extends AppCompatActivity {
     private boolean _TextOK = false;
 
     private static boolean _NewNote = true;
+    //  </editor-fold>
 
     private void saveNote() {
         if (_TextOK)    {
@@ -93,6 +98,7 @@ public class editTermNote extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     private void init_EditTermNote() {
         _Repository = AppRepository.getInstance(getBaseContext());
 
@@ -132,11 +138,6 @@ public class editTermNote extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
     public void onBackPressed() {
         saveNote();
     }
@@ -155,10 +156,9 @@ public class editTermNote extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int ItemId  = item.getItemId();
-        if (ItemId == android.R.id.home)    {
+        if (item.getItemId() == android.R.id.home)
             saveNote();
-        }
+
         return super.onOptionsItemSelected(item);
     }
 }

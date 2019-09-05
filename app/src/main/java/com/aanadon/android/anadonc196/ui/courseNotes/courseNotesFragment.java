@@ -22,6 +22,7 @@ import butterknife.OnClick;
 
 public class courseNotesFragment extends Fragment {
 
+    //  <editor-fold defaultstate="collapsed" des="Butterknife Injections">
     @BindView(R.id.btnAddCourseNote)
     FloatingActionButton _AddCourseNote;
     @OnClick(R.id.btnAddCourseNote)
@@ -29,8 +30,11 @@ public class courseNotesFragment extends Fragment {
         Intent NoteIntent   = new Intent(getActivity().getBaseContext(), editCourseNote.class);
         startActivity(NoteIntent);
     }
+    //  </editor-fold>
 
+    //  <editor-fold defaultstate="collapsed" des="Member Variables">
     private courseNotesViewModel notificationsViewModel;
+    //  </editor-fold>
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

@@ -1,12 +1,8 @@
 package com.aanadon.android.anadonc196.ui.termNotes;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,12 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.db.AppRepository;
-import com.aanadon.android.anadonc196.editTerm;
 import com.aanadon.android.anadonc196.editTermNote;
-import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
 import com.aanadon.android.anadonc196.ui.adapters.adapter_TermNoteItem;
-import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.vms.vm_TermNote;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -40,6 +33,7 @@ import butterknife.OnClick;
 
 public class frag_TermNote extends Fragment {
 
+    //  <editor-fold defaultstate="collapsed" des="Butterknife Injections">
     @BindView(R.id.btnAddTermNote)
     FloatingActionButton _AddTermNote;
     @BindView(R.id.viewTermNotesRecycler)
@@ -50,24 +44,15 @@ public class frag_TermNote extends Fragment {
         Intent AddTermNote = new Intent(getActivity().getBaseContext(), editTermNote.class);
         startActivity(AddTermNote);
     }
+    //  </editor-fold>
 
+    //  <editor-fold defaultstate="collapsed" des="Member Variables">
     private AppRepository _Repository;
     private vm_TermNote _ViewModel;
     private adapter_TermNoteItem _Adapter;
     private List<TermNoteEntity> _NoteList  = new ArrayList<>();
+    //  </editor-fold>
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        _ViewModel =
-                ViewModelProviders.of(this).get(vm_TermNote.class);
-        View root = inflater.inflate(R.layout.frag_term_notes, container, false);
-
-        ButterKnife.bind(this, root);
-        initializeRecyclerView();
-        initializeViewModel();
-
-        return root;
-    }
 
     private void initializeViewModel() {
         _Repository = AppRepository.getInstance(getContext());
@@ -80,7 +65,7 @@ public class frag_TermNote extends Fragment {
 
                 if (null == _Adapter)   {
                     _Adapter    = new adapter_TermNoteItem(_NoteList,
-                        frag_TermNote.this.getContext());
+                            frag_TermNote.this.getContext());
                     _NoteView.setAdapter(_Adapter);
                 }
                 else    {
@@ -97,6 +82,20 @@ public class frag_TermNote extends Fragment {
 
         LinearLayoutManager Layout  = new LinearLayoutManager(getContext());
         _NoteView.setLayoutManager(Layout);
+    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        _ViewModel =
+                ViewModelProviders.of(this).get(vm_TermNote.class);
+        View root = inflater.inflate(R.layout.frag_term_notes, container, false);
+
+        ButterKnife.bind(this, root);
+        initializeRecyclerView();
+        initializeViewModel();
+
+        return root;
     }
 
     @Override

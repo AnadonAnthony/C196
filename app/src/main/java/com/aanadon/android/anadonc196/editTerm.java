@@ -1,12 +1,8 @@
 package com.aanadon.android.anadonc196;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 
 import com.aanadon.android.anadonc196.models.TermEntity;
-import com.aanadon.android.anadonc196.utilities.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 public class editTerm extends AppCompatActivity {
 
+    //  <editor-fold defaultstate="collapsed" des="Member Variables">
     private static boolean _NewTerm    = true;
     public static boolean IsNewTerm()   {
         return _NewTerm;
@@ -24,6 +21,7 @@ public class editTerm extends AppCompatActivity {
 
     private static int _TermId          = -1;
     public static int getTermId()   { return _TermId; }
+    //  </editor-fold>
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +35,8 @@ public class editTerm extends AppCompatActivity {
 
         if (!_NewTerm)
             _TermId = Extras.getInt(TermEntity.PRIMARY_KEY);
-        else    {
+        else
             _TermId = -1;
-
-        }
 
         setContentView(R.layout.activity_edit_term);
 
