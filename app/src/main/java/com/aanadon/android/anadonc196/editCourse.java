@@ -2,6 +2,7 @@ package com.aanadon.android.anadonc196;
 
 import android.os.Bundle;
 
+import com.aanadon.android.anadonc196.models.CourseEntity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,16 +13,36 @@ import androidx.navigation.ui.NavigationUI;
 
 public class editCourse extends AppCompatActivity {
 
+    private static boolean _NewCourse   = true;
+    public static boolean isNewCourse() {
+        return _NewCourse;
+    }
+
+    private static int _CourseId    = -1;
+    public static int getCourseId() {
+        return _CourseId;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle Extras   = getIntent().getExtras();
+        _NewCourse      = (null == Extras);
+
+        if (!_NewCourse)
+            _CourseId   = Extras.getInt(CourseEntity.PRIMARY_KEY);
+        else
+            _CourseId   = -1;
+
+
         setContentView(R.layout.activity_edit_course);
+
         BottomNavigationView navView = findViewById(R.id.nav_CourseView);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_TermInfo, R.id.nav_TermCourses, R.id.nav_TermNotes)
-                .build();
+                R.id.nav_CourseInfo, R.id.nav_CourseMentors, R.id.nav_CourseAssessments, R.id.nav_CourseNotes).build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_CourseFragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);

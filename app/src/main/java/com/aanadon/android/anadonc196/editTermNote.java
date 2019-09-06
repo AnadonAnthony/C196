@@ -94,6 +94,8 @@ public class editTermNote extends AppCompatActivity {
             Note.setTermId(editTerm.getTermId());
             Note.setNoteText(_Text.getText().toString().trim());
 
+
+
             _Repository.insertTermNote(Note);
         }
     }

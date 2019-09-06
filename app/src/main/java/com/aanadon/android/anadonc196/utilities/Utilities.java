@@ -44,6 +44,10 @@ public class Utilities {
     }
     //  </editor-fold>
 
+    //  <editor-fold defaultstate="collapsed" des="CourseState Conversion Methods">
+
+    //  </editor-fold>
+
     //  <editor-fold default-state="collapsed" desc="Toast Messaging">
     public static void BurnToast(Fragment pFrag, String pText)  {
         Toast Toaster   = Toast.makeText(pFrag.getContext(),

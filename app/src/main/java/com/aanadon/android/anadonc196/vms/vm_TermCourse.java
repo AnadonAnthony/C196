@@ -7,18 +7,18 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.aanadon.android.anadonc196.db.AppRepository;
-import com.aanadon.android.anadonc196.models.TermNoteEntity;
+import com.aanadon.android.anadonc196.models.CourseEntity;
 
 import java.util.List;
 
-public class vm_TermNote
+public class vm_TermCourse
     extends AndroidViewModel {
 
-    public LiveData<List<TermNoteEntity>> _Notes;
+    public LiveData<List<CourseEntity>> _Courses;
 
-    public vm_TermNote(@NonNull Application application) {
+    public vm_TermCourse(@NonNull Application application) {
         super(application);
 
-        _Notes = AppRepository.getInstance(application.getApplicationContext()).TermNoteList;
+        _Courses    = AppRepository.getInstance(application.getApplicationContext()).TermCourseList;
     }
 }

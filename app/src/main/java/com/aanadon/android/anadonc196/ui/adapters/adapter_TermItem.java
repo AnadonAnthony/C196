@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aanadon.android.anadonc196.R;
+import com.aanadon.android.anadonc196.db.AppRepository;
 import com.aanadon.android.anadonc196.editTerm;
 import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.utilities.Random;
@@ -27,10 +28,12 @@ public class adapter_TermItem extends RecyclerView.Adapter<adapter_TermItem.View
 
     private final Context _Context;
     private final List<TermEntity> _TermList;
+    private AppRepository _Repo;
 
     public adapter_TermItem(List<TermEntity> _TermList, Context _Context) {
-        this._TermList = _TermList;
-        this._Context = _Context;
+        this._TermList  = _TermList;
+        this._Context   = _Context;
+        _Repo           = AppRepository.getInstance(_Context);
     }
 
     @NonNull
@@ -46,7 +49,6 @@ public class adapter_TermItem extends RecyclerView.Adapter<adapter_TermItem.View
         final TermEntity Term   = _TermList.get(position);
 
         holder._TitleText.setText(Term.getTermTitle());
-        holder._CourseCount.setText(String.format("%02d", Random._Rand.nextInt(3) + 2));
 
         Date Start  = Term.getTermStart();
         if (null != Start)
@@ -75,8 +77,6 @@ public class adapter_TermItem extends RecyclerView.Adapter<adapter_TermItem.View
         TextView _TitleText;
         @BindView(R.id.txt_StartDate)
         TextView _StartText;
-        @BindView(R.id.txt_CourseCount)
-        TextView _CourseCount;
         @BindView(R.id.topCardLayout)
         ConstraintLayout CardLayout;
 

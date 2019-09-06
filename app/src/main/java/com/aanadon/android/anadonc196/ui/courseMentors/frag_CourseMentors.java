@@ -1,4 +1,4 @@
-package com.aanadon.android.anadonc196.ui.courseNotes;
+package com.aanadon.android.anadonc196.ui.courseMentors;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class courseNotesFragment extends Fragment {
+public class frag_CourseMentors extends Fragment {
 
     //  <editor-fold defaultstate="collapsed" des="Butterknife Injections">
     @BindView(R.id.btnAddCourseNote)
@@ -33,13 +33,13 @@ public class courseNotesFragment extends Fragment {
     //  </editor-fold>
 
     //  <editor-fold defaultstate="collapsed" des="Member Variables">
-    private courseNotesViewModel notificationsViewModel;
+    private frag_vmdl_CourseMentors notificationsViewModel;
     //  </editor-fold>
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         notificationsViewModel =
-                ViewModelProviders.of(this).get(courseNotesViewModel.class);
+                ViewModelProviders.of(this).get(frag_vmdl_CourseMentors.class);
         View root = inflater.inflate(R.layout.frag_course_notes, container, false);
 
         ButterKnife.bind(this, root);

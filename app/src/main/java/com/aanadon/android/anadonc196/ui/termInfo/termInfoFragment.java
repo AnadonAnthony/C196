@@ -126,7 +126,7 @@ public class termInfoFragment extends Fragment {
 
     private void saveTerm() {
 
-        if (IsReadyToSave())    {
+        if (isReadyToSave())    {
             TermEntity Term = _Data.getValue();
 
             if (null == Term)
@@ -139,7 +139,7 @@ public class termInfoFragment extends Fragment {
         }
     }
 
-    private boolean IsReadyToSave() {
+    private boolean isReadyToSave() {
         if (!_NewTerm)  {
             //  Has anything changed since it was loaded?
             String Title01  = _Data.getValue().getTermTitle();
@@ -151,14 +151,17 @@ public class termInfoFragment extends Fragment {
             boolean TitleChanged    = !Title01.equals(Title02);
             boolean StartChanged    = !Start01.equals(Start02);
 
-            if ((TitleChanged && _TitleOK) ||
-                (StartChanged && _StartOK)) {
+            boolean Result          = TitleChanged || StartChanged;
+            Result                  = Result && ((TitleChanged && _TitleOK) || !TitleChanged);
+            Result                  = Result && ((StartChanged && _StartOK) || !StartChanged);
+
+            if (Result)
                 Utilities.ButterToast(this,
-                        String.format(getString(R.string.toastChanged),
-                                getString(R.string.txtTerm),
-                                Title01));
-                return true;
-            }
+                    String.format(getString(R.string.toastChanged),
+                        getString(R.string.txtTerm),
+                        Title01));
+
+            return Result;
         }
 
         return _StartOK && _TitleOK;
@@ -208,6 +211,8 @@ public class termInfoFragment extends Fragment {
         }
 
 
+        BottomNavigationView BotView    = getActivity().findViewById(R.id.nav_TermView);
+
         //  Retrieve any extras that came with the bundle.
         //  If there are no extras, then process this as a NEW TERM entry. Otherwise, process this
         //  as a CURRENT TERM modification.
@@ -228,7 +233,6 @@ public class termInfoFragment extends Fragment {
 
             //  Retrieve the bottom navigational menu and hide the items that are currently
             //  useless to the user
-            BottomNavigationView BotView    = getActivity().findViewById(R.id.nav_TermView);
             Menu NavMenu    = BotView.getMenu();
             NavMenu.findItem(R.id.nav_TermNotes).setVisible(false);
             NavMenu.findItem(R.id.nav_TermCourses).setVisible(false);
@@ -237,7 +241,6 @@ public class termInfoFragment extends Fragment {
 
             //  Retrieve the bottom navigational menu and add an OnClick listener event that saves
             //  any changes to the term before switching fragments.
-            BottomNavigationView BotView    = getActivity().findViewById(R.id.nav_TermView);
             Menu NavMenu    = BotView.getMenu();
             for (int i = 0; i < NavMenu.size(); i++)    {
                 MenuItem Item   = NavMenu.getItem(i);

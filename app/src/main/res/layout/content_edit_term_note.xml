@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".editTermNote"
-    tools:showIn="@layout/activity_edit_term_note">
+    tools:showIn="@layout/activity_edit_term_note"
+    app:titleTextColor="@color/colorPrimaryLight">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:alpha=".05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewTermList"
+        app:layout_constraintVertical_bias=".5"
+        app:srcCompat="@drawable/ic_logo_wgu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

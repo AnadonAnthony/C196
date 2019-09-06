@@ -1,8 +1,11 @@
 package com.aanadon.android.anadonc196;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.aanadon.android.anadonc196.db.AppRepository;
 import com.aanadon.android.anadonc196.models.TermEntity;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,13 +18,13 @@ public class editTerm extends AppCompatActivity {
 
     //  <editor-fold defaultstate="collapsed" des="Member Variables">
     private static boolean _NewTerm    = true;
+    private static int _TermId          = -1;
+    //  </editor-fold>
+
     public static boolean IsNewTerm()   {
         return _NewTerm;
     }
-
-    private static int _TermId          = -1;
     public static int getTermId()   { return _TermId; }
-    //  </editor-fold>
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,6 @@ public class editTerm extends AppCompatActivity {
         //  the test is only performed when the entire activity set is generated
         Bundle Extras = getIntent().getExtras();
         _NewTerm = (null == Extras);
-
 
         if (!_NewTerm)
             _TermId = Extras.getInt(TermEntity.PRIMARY_KEY);

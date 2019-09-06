@@ -2,6 +2,7 @@ package com.aanadon.android.anadonc196.ui.termNotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.db.AppRepository;
+import com.aanadon.android.anadonc196.editTerm;
 import com.aanadon.android.anadonc196.editTermNote;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
 import com.aanadon.android.anadonc196.ui.adapters.adapter_TermNoteItem;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.vms.vm_TermNote;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -68,9 +71,8 @@ public class frag_TermNote extends Fragment {
                             frag_TermNote.this.getContext());
                     _NoteView.setAdapter(_Adapter);
                 }
-                else    {
+                else
                     _Adapter.notifyDataSetChanged();
-                }
             }
         };
 
@@ -95,6 +97,7 @@ public class frag_TermNote extends Fragment {
         initializeRecyclerView();
         initializeViewModel();
 
+        _Repository.TermNoteList    = _Repository.fetchTermNotes(editTerm.getTermId());
         return root;
     }
 
@@ -106,6 +109,12 @@ public class frag_TermNote extends Fragment {
         if (null != Bar)    {
             Bar.setDisplayHomeAsUpEnabled(true);
             Bar.setTitle("Term Notes");
+        }
+
+        if (!editTerm.IsNewTerm()) {
+            Log.i(Constants.LOG_TAG,
+                    "→\tNote List for Term: " + editTerm.getTermId());
+            _Repository.TermNoteList = _Repository.fetchTermNotes(editTerm.getTermId());
         }
     }
 

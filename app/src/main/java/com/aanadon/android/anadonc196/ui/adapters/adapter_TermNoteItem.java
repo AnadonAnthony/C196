@@ -2,7 +2,6 @@ package com.aanadon.android.anadonc196.ui.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.editTermNote;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
-import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Utilities;
 
 import java.util.List;

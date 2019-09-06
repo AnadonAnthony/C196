@@ -33,7 +33,4 @@ public interface TermDAO {
 
     @Query("SELECT COUNT(*) FROM tbTerm")
     int getCount();
-
-    @Query("SELECT termId FROM tbTerm ORDER BY termId DESC LIMIT 1")
-    int getLastTermId();
 }

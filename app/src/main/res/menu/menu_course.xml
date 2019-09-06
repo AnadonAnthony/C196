@@ -7,6 +7,11 @@
         android:title="@string/txt_CourseInfo" />
 
     <item
+        android:id="@+id/nav_CourseMentors"
+        android:icon="@drawable/ic_mentor"
+        android:title="Course Mentors" />
+
+    <item
         android:id="@+id/nav_CourseAssessments"
         android:icon="@drawable/ic_assessment"
         android:title="@string/txt_CourseAssessments" />

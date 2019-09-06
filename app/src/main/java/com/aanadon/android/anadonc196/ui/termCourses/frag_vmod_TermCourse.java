@@ -9,9 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
 
-public class termCourseViewModel extends ViewModel {
-
-
-    public termCourseViewModel() {
+public class frag_vmod_TermCourse extends ViewModel {
+    public frag_vmod_TermCourse() {
     }
 }

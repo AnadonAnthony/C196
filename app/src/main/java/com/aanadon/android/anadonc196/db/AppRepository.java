@@ -5,13 +5,13 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import com.aanadon.android.anadonc196.R;
+import com.aanadon.android.anadonc196.editTerm;
+import com.aanadon.android.anadonc196.models.CourseEntity;
 import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
 import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Samples;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -29,6 +29,7 @@ public class AppRepository {
 
     public LiveData<List<TermEntity>> TermList;
     public LiveData<List<TermNoteEntity>> TermNoteList;
+    public LiveData<List<CourseEntity>> TermCourseList;
 
     private AppDatabase _Db;
     private Executor _Executor  = Executors.newSingleThreadExecutor();
@@ -37,7 +38,8 @@ public class AppRepository {
     private AppRepository(Context pContext) {
         _Db             = AppDatabase.getInstance(pContext);
         TermList        = fetchTermData();
-        TermNoteList    = fetchTermNotesData();
+        TermNoteList    = fetchTermNotes(editTerm.getTermId());
+        TermCourseList  = fetchTermCourseData(editTerm.getTermId());
     }
 
     public void addSampleData() {
@@ -64,6 +66,8 @@ public class AppRepository {
     }
 
     public TermEntity fetchTermData(int termId) {
+        TermNoteList    = fetchTermNotes(termId);
+        TermCourseList  = fetchTermCourseData(termId);
         return _Db.TermDAO().getTermById(termId);
     }
 
@@ -111,13 +115,34 @@ public class AppRepository {
         return _Db.TermNoteDAO().getTermNoteById(pNoteId);
     }
 
-    public LiveData<List<TermNoteEntity>> fetchTermNotesData()  {
-        return _Db.TermNoteDAO().getAllTermNotes();
-    }
+    public LiveData<List<TermNoteEntity>> fetchTermNotes(int pTermId)   {
+        if (pTermId < 0)
+            return _Db.TermNoteDAO().getAllTermNotes();
 
-    public LiveData<List<TermNoteEntity>> fetchTermNotesData(int pTermId)   {
         return _Db.TermNoteDAO().getTermNotes(pTermId);
     }
 
+    //  </editor-fold>
+
+    //  <editor-fold defaultstate="collapsed" des="Course Methods">
+    public LiveData<List<CourseEntity>> fetchTermCourseData(int pTermId)   {
+        if (pTermId < 0)
+            return _Db.CourseDAO().getAllCourses();
+
+        return _Db.CourseDAO().getCoursesByTerm(pTermId);
+    }
+
+    public void insertCourse(final CourseEntity course) {
+        _Executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                _Db.CourseDAO().insertCourse(course);
+            }
+        });
+    }
+
+    public CourseEntity fetchCourseData(int courseId) {
+        return _Db.CourseDAO().fetchCourse(courseId);
+    }
     //  </editor-fold>
 }

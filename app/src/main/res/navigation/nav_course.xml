@@ -7,19 +7,25 @@
 
     <fragment
         android:id="@+id/nav_CourseInfo"
-        android:name="com.aanadon.android.anadonc196.ui.courseInfo.courseInfoFragment"
+        android:name="com.aanadon.android.anadonc196.ui.courseInfo.frag_CourseInfo"
         android:label="@string/txt_CourseInfo"
         tools:layout="@layout/frag_course_info" />
 
     <fragment
         android:id="@+id/nav_CourseAssessments"
-        android:name="com.aanadon.android.anadonc196.ui.courseAssessments.courseAssessmentsFragment"
+        android:name="com.aanadon.android.anadonc196.ui.courseAssessments.frag_CourseAssessments"
         android:label="@string/txt_CourseAssessments"
         tools:layout="@layout/frag_course_assessments" />
 
     <fragment
         android:id="@+id/nav_CourseNotes"
-        android:name="com.aanadon.android.anadonc196.ui.courseNotes.courseNotesFragment"
+        android:name="com.aanadon.android.anadonc196.ui.courseNotes.frag_CourseNotes"
         android:label="@string/txt_CourseNotes"
         tools:layout="@layout/frag_course_notes" />
+
+    <fragment
+        android:id="@+id/nav_CourseMentors"
+        android:name="com.aanadon.android.anadonc196.ui.courseMentors.frag_CourseMentors"
+        android:label="Course Mentors"
+        tools:layout="@layout/frag_course_mentors" />
 </navigation>
