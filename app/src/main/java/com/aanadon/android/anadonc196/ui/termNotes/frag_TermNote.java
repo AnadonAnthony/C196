@@ -2,6 +2,7 @@ package com.aanadon.android.anadonc196.ui.termNotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,7 +109,8 @@ public class frag_TermNote extends Fragment {
         ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (null != Bar)    {
             Bar.setDisplayHomeAsUpEnabled(true);
-            Bar.setTitle("Term Notes");
+            Bar.setHomeAsUpIndicator(R.drawable.ic_save);
+            Bar.setTitle(Html.fromHtml(String.format(Constants.TITLE_MOD, "Term Information")));
         }
 
         if (!editTerm.IsNewTerm()) {

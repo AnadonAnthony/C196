@@ -3,6 +3,7 @@ package com.aanadon.android.anadonc196.ui.courseInfo;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -211,7 +212,8 @@ public class frag_CourseInfo extends Fragment {
         ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (null != Bar) {
             Bar.setDisplayHomeAsUpEnabled(true);
-            Bar.setTitle("Course Information");
+            Bar.setHomeAsUpIndicator(R.drawable.ic_save);
+            Bar.setTitle(Html.fromHtml(String.format(Constants.TITLE_MOD, "Course Information")));
         }
 
         Menu NavMenu    = ((BottomNavigationView)getActivity().findViewById(R.id.nav_CourseView)).getMenu();

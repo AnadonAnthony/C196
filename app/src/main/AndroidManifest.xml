@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aanadon.android.anadonc196">
 
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
@@ -14,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".editCourseMentor"></activity>
         <activity
             android:name=".editTermNote"
             android:label="@string/title_activity_edit_term_note"
@@ -28,6 +27,7 @@
         <activity
             android:name=".editCourseNote"
             android:label="@string/title_activity_edit_course_note"
+            android:launchMode="singleTask"
             android:parentActivityName=".editCourse"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -37,6 +37,7 @@
         <activity
             android:name=".editAssessmentNote"
             android:label="@string/title_activity_edit_assessment_note"
+            android:launchMode="singleTask"
             android:parentActivityName=".editAssessment"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -46,6 +47,7 @@
         <activity
             android:name=".editAssessment"
             android:label="@string/title_activity_edit_assessment"
+            android:launchMode="singleTask"
             android:parentActivityName=".editCourse">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -54,6 +56,7 @@
         <activity
             android:name=".editCourse"
             android:label="@string/title_activity_edit_course"
+            android:launchMode="singleTask"
             android:parentActivityName=".editTerm">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -79,4 +82,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

@@ -2,6 +2,7 @@ package com.aanadon.android.anadonc196.ui.courseAssessments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.editAssessment;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -28,9 +31,9 @@ public class frag_CourseAssessments extends Fragment {
 
     @OnClick(R.id.btnAddAssessment)
     public void onClick_AddAssessment() {
-        Log.i(getString(R.string.LogTag), "CLICKED!");
+        Log.i(getString(R.string.LogTag), "Starting Assessment Intent");
 
-        Intent AssessmentIntent = new Intent(getActivity().getBaseContext(), editAssessment.class);
+        Intent AssessmentIntent = new Intent(getContext(), editAssessment.class);
         startActivity(AssessmentIntent);
     }
 
@@ -50,7 +53,12 @@ public class frag_CourseAssessments extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Course Assessment List");
+
+        ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (null != Bar) {
+            Bar.setDisplayHomeAsUpEnabled(true);
+            Bar.setHomeAsUpIndicator(R.drawable.ic_save);
+            Bar.setTitle(Html.fromHtml(String.format(Constants.TITLE_MOD, "Course Assessment List")));
+        }
     }
 }

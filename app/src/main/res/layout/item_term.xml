@@ -7,6 +7,22 @@
     android:layout_height="wrap_content"
     android:clickable="true">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:alpha=".05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".5"
+        app:srcCompat="@drawable/ic_logo_wgu" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardTerm"
         android:layout_width="match_parent"
@@ -33,19 +49,6 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:hapticFeedbackEnabled="true">
-
-            <ImageView
-                android:id="@+id/imgWGU"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha=".125"
-                android:clickable="true"
-                android:scaleType="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_foreground" />
 
             <TextView
                 android:id="@+id/txt_TermTitle"

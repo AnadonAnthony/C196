@@ -3,6 +3,7 @@ package com.aanadon.android.anadonc196.ui.termInfo;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +26,7 @@ import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.db.AppRepository;
 import com.aanadon.android.anadonc196.editTerm;
 import com.aanadon.android.anadonc196.models.TermEntity;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Utilities;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -205,9 +208,9 @@ public class termInfoFragment extends Fragment {
         //  Add in the 'home' button (before the header text) and change the icon to the checkmark.
         ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (null != Bar) {
-            Bar.setTitle("Term Information");
             Bar.setDisplayHomeAsUpEnabled(true);
             Bar.setHomeAsUpIndicator(R.drawable.ic_save);
+            Bar.setTitle(Html.fromHtml(String.format(Constants.TITLE_MOD, "Term Information")));
         }
 
 

@@ -1,30 +1,30 @@
 <resources>
     <string name="app_name">WGU C196</string>
 
-    //  Main Menu
+    // Main Menu
     <string name="action_AddSamples">Add Sample Data</string>
     <string name="action_DeleteSamples">Delete Sample Data</string>
 
-    //  Primary Activity Menu Headings
+    // Primary Activity Menu Headings
     <string name="title_activity_edit_term">Edit Term</string>
     <string name="title_activity_edit_course">Edit Course</string>
     <string name="title_activity_edit_assessment">Edit Assessment</string>
 
-    //  Term-Specific (Bottom) Menu Headings
+    // Term-Specific (Bottom) Menu Headings
     <string name="txt_TermInfo">Term Info</string>
     <string name="txt_TermCourses">Term Course List</string>
     <string name="txt_TermNotes">Term Notes</string>
 
-    //  Course-Specific (Bottom) Menu Headings
+    // Course-Specific (Bottom) Menu Headings
     <string name="txt_CourseInfo">Course Info</string>
     <string name="txt_CourseAssessments">Assessments</string>
     <string name="txt_CourseNotes">Course Notes</string>
 
-    //  Assessment-Specific (Bottom) Menu Headings
+    // Assessment-Specific (Bottom) Menu Headings
     <string name="txt_AssessmentInfo">Assessment Info</string>
     <string name="txt_AssessmentNotes">Assessment Notes</string>
 
-    //  Note Activity Headings
+    // Note Activity Headings
     <string name="title_activity_edit_assessment_note">editAssessmentNote</string>
     <string name="title_activity_edit_course_note">editCourseNote</string>
     <string name="title_activity_edit_term_note">editTermNote</string>
@@ -39,6 +39,8 @@
     <string name="txt_CreateTermNote">Create Term Note</string>
     <string name="txt_EditTermNote">Edit Term Note</string>
     <string name="txtCourse">Course</string>
+    <string name="txtCourseMentor">Course Mentors</string>
+    <string name="title_activity_edit_course_mentor">Course Mentor</string>
 
     <string-array name="CourseStates">
         <item>Planned</item>

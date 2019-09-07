@@ -19,6 +19,7 @@ import com.aanadon.android.anadonc196.models.CourseEntity;
 import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.utilities.Utilities;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -50,19 +51,36 @@ public class adapter_TermCourseItem extends RecyclerView.Adapter<adapter_TermCou
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final CourseEntity Course   = _Courses.get(position);
 
-        holder._Assessments.setText("0");
+        Calendar Today  = Calendar.getInstance();
         holder._Title.setText(Course.getCourseTitle());
 
 
         holder._End.setText(Utilities.toString(Course.getEndDate()));
         holder._Start.setText(Utilities.toString(Course.getStartDate()));
 
+        int Status  = Course.getCourseStatus();
+        switch (Status) {
+            case Constants.CourseState.DROPPED:
+            case Constants.CourseState.COMPLETED:
+                holder._Progress.setProgress(holder._Progress.getMax());
+                break;
 
-        Date Today  = new Date();
-        Date End    = Course.getEndDate();
-        Date Start  = Course.getStartDate();
-        holder._Progress.setMax((int)(End.getTime() - Start.getTime()));
-        holder._Progress.setProgress((int)(Today.getTime() - Start.getTime()));
+            case Constants.CourseState.IN_PROGRESS:
+                holder._Progress.setProgress(holder._Progress.getMax() / 2);
+
+                if (Today.after(Course.getEndDate()))
+                    holder._Title.setTextColor(Color.RED);
+
+                break;
+
+            default:
+                if (Today.after(Course.getStartDate()))
+                    holder._Progress.setProgress(holder._Progress.getMax() / 4);
+                else
+                    holder._Progress.setProgress(0);
+                break;
+        }
+
         holder._Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,8 +107,6 @@ public class adapter_TermCourseItem extends RecyclerView.Adapter<adapter_TermCou
         TextView _End;
         @BindView(R.id.item_CourseState)
         TextView _State;
-        @BindView(R.id.item_CourseAssessments)
-        TextView _Assessments;
         @BindView(R.id.item_CourseProgress)
         ProgressBar _Progress;
         @BindView(R.id.item_CourseCard)

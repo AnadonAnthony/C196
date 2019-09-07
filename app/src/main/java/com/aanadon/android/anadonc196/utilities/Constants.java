@@ -1,7 +1,8 @@
 package com.aanadon.android.anadonc196.utilities;
 
 public class Constants {
-    public static final String LOG_TAG  = "AnadonC196";
+    public static final String LOG_TAG      = "AnadonC196";
+    public static final String TITLE_MOD    = "<FONT COLOR='#FFFFFF'>%1$s</FONT>";
 
     public class CourseState    {
         public static final int PLANNED     = 0;

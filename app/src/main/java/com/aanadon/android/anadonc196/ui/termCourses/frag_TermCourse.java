@@ -2,6 +2,7 @@ package com.aanadon.android.anadonc196.ui.termCourses;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.aanadon.android.anadonc196.db.AppRepository;
 import com.aanadon.android.anadonc196.editCourse;
 import com.aanadon.android.anadonc196.models.CourseEntity;
 import com.aanadon.android.anadonc196.ui.adapters.adapter_TermCourseItem;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.aanadon.android.anadonc196.vms.vm_TermCourse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -104,7 +106,8 @@ public class frag_TermCourse extends Fragment {
         ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (null != Bar)    {
             Bar.setDisplayHomeAsUpEnabled(true);
-            Bar.setTitle("Term Course List");
+            Bar.setHomeAsUpIndicator(R.drawable.ic_save);
+            Bar.setTitle(Html.fromHtml(String.format(Constants.TITLE_MOD, "Term Course List")));
         }
     }
 }

@@ -9,7 +9,7 @@
     <item
         android:id="@+id/nav_CourseMentors"
         android:icon="@drawable/ic_mentor"
-        android:title="Course Mentors" />
+        android:title="@string/txtCourseMentor" />
 
     <item
         android:id="@+id/nav_CourseAssessments"

@@ -1,6 +1,7 @@
 package com.aanadon.android.anadonc196;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -149,6 +150,7 @@ public class editTermNote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_term_note);
         Toolbar toolbar = findViewById(R.id.termToolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);

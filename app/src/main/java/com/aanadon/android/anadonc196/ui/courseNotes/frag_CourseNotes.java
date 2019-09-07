@@ -2,18 +2,22 @@ package com.aanadon.android.anadonc196.ui.courseNotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.editCourseNote;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -27,7 +31,9 @@ public class frag_CourseNotes extends Fragment {
     FloatingActionButton _AddCourseNote;
     @OnClick(R.id.btnAddCourseNote)
     public void onClick_AddCourseNote() {
-        Intent NoteIntent   = new Intent(getActivity().getBaseContext(), editCourseNote.class);
+        Log.i(Constants.LOG_TAG,
+                "→\tCreate a new Course Note");
+        Intent NoteIntent   = new Intent(getContext(), editCourseNote.class);
         startActivity(NoteIntent);
     }
     //  </editor-fold>
@@ -51,7 +57,11 @@ public class frag_CourseNotes extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Course Notes");
+        ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (null != Bar) {
+            Bar.setDisplayHomeAsUpEnabled(true);
+            Bar.setHomeAsUpIndicator(R.drawable.ic_save);
+            Bar.setTitle(Html.fromHtml(String.format(Constants.TITLE_MOD, "Course Notes")));
+        }
     }
 }

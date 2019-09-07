@@ -2,6 +2,7 @@ package com.aanadon.android.anadonc196.ui.assessmentNotes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.aanadon.android.anadonc196.R;
 import com.aanadon.android.anadonc196.editAssessmentNote;
+import com.aanadon.android.anadonc196.utilities.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import butterknife.BindView;
@@ -48,8 +51,11 @@ public class assesNotesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Assessment Notes");
+        ActionBar Bar   = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        if (null != Bar) {
+            Bar.setDisplayHomeAsUpEnabled(true);
+            Bar.setHomeAsUpIndicator(R.drawable.ic_save);
+            Bar.setTitle(Html.fromHtml(String.format(Constants.TITLE_MOD, "Assessment Note List")));
+        }
     }
 }
