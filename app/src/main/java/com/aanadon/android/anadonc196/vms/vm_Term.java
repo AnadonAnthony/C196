@@ -20,7 +20,7 @@ public class vm_Term extends AndroidViewModel {
         super(application);
 
         _Repository = AppRepository.getInstance(application.getApplicationContext());
-        TermList    = _Repository.TermList;
+        TermList    = _Repository.Terms;
     }
 
     public void addSampleData() {

@@ -4,9 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Delete;
 
+import com.aanadon.android.anadonc196.editCourse;
 import com.aanadon.android.anadonc196.editTerm;
+import com.aanadon.android.anadonc196.models.AssessmentEntity;
 import com.aanadon.android.anadonc196.models.CourseEntity;
+import com.aanadon.android.anadonc196.models.CourseNoteEntity;
 import com.aanadon.android.anadonc196.models.TermEntity;
 import com.aanadon.android.anadonc196.models.TermNoteEntity;
 import com.aanadon.android.anadonc196.utilities.Constants;
@@ -27,9 +31,11 @@ public class AppRepository {
         return _Instance;
     }
 
-    public LiveData<List<TermEntity>> TermList;
-    public LiveData<List<TermNoteEntity>> TermNoteList;
-    public LiveData<List<CourseEntity>> TermCourseList;
+    public LiveData<List<TermEntity>> Terms;
+    public LiveData<List<TermNoteEntity>> TermNotes;
+    public LiveData<List<CourseEntity>> Courses;
+    public LiveData<List<CourseNoteEntity>> CourseNotes;
+    public LiveData<List<AssessmentEntity>> Assessments;
 
     private AppDatabase _Db;
     private Executor _Executor  = Executors.newSingleThreadExecutor();
@@ -37,9 +43,14 @@ public class AppRepository {
 
     private AppRepository(Context pContext) {
         _Db             = AppDatabase.getInstance(pContext);
-        TermList        = fetchTermData();
-        TermNoteList    = fetchTermNotes(editTerm.getTermId());
-        TermCourseList  = fetchTermCourseData(editTerm.getTermId());
+
+        Terms           = fetchTermData();
+        TermNotes       = fetchTermNotes(editTerm.getTermId());
+
+        Courses         = fetchTermCourseData(editTerm.getTermId());
+        CourseNotes     = fetchCourseNotes(editCourse.getCourseId());
+
+        Assessments     = fetchAssessments(editCourse.getCourseId());
     }
 
     public void addSampleData() {
@@ -66,8 +77,8 @@ public class AppRepository {
     }
 
     public TermEntity fetchTermData(int termId) {
-        TermNoteList    = fetchTermNotes(termId);
-        TermCourseList  = fetchTermCourseData(termId);
+        TermNotes = fetchTermNotes(termId);
+        Courses = fetchTermCourseData(termId);
         return _Db.TermDAO().getTermById(termId);
     }
 
@@ -141,8 +152,51 @@ public class AppRepository {
         });
     }
 
-    public CourseEntity fetchCourseData(int courseId) {
+    public CourseEntity fetchCourseData(final int courseId) {
+        CourseNotes = _Db.CourseNoteDAO().getNotesByCourse(courseId);
+        Assessments = _Db.AssessmentDAO().fetchAssessments(courseId);
         return _Db.CourseDAO().fetchCourse(courseId);
     }
     //  </editor-fold>
+
+    //  <editor-fold defaultstate="collapsed" des="Assessment Methods">
+    public void insertAssessment(final AssessmentEntity assessment) {
+        _Executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                _Db.AssessmentDAO().insertAssessment(assessment);
+            }
+        });
+    }
+
+    public AssessmentEntity fetchAssessmentData(int assessmentId) {
+        return _Db.AssessmentDAO().fetchAssessment(assessmentId);
+    }
+
+    public LiveData<List<AssessmentEntity>> fetchAssessments(int courseId)  {
+        Log.i(Constants.LOG_TAG,
+                "AppRepository.fetchAssessments(int)");
+        Log.i(Constants.LOG_TAG,
+                "→\tFetching Assessments for CourseId: " + courseId);
+        if (courseId >= 0) {
+            Assessments = _Db.AssessmentDAO().fetchAssessments(courseId);
+            return Assessments;
+        }
+        else
+            return _Db.AssessmentDAO().fetchAssessments();
+    }
+
+    public void deleteAssessment(final AssessmentEntity assessment) {
+        _Executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                _Db.AssessmentDAO().deleteAssessment(assessment);
+            }
+        });
+    }
+    //  </editor-fold>
+
+    public LiveData<List<CourseNoteEntity>> fetchCourseNotes(int courseId)  {
+        return _Db.CourseNoteDAO().getNotesByCourse(courseId);
+    }
 }

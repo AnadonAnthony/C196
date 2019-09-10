@@ -19,6 +19,6 @@ public class vm_TermCourse
     public vm_TermCourse(@NonNull Application application) {
         super(application);
 
-        _Courses    = AppRepository.getInstance(application.getApplicationContext()).TermCourseList;
+        _Courses    = AppRepository.getInstance(application.getApplicationContext()).Courses;
     }
 }

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_AssessmentInfo"
-        android:name="com.aanadon.android.anadonc196.ui.assessmentInfo.assessInfoFragment"
+        android:name="com.aanadon.android.anadonc196.ui.assessmentInfo.frag_AssessmentInfo"
         android:label="@string/txt_AssessmentInfo"
         tools:layout="@layout/frag_assessment_info" />
 

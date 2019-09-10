@@ -44,8 +44,14 @@ public class Utilities {
     }
     //  </editor-fold>
 
-    //  <editor-fold defaultstate="collapsed" des="CourseState Conversion Methods">
+    //  <editor-fold defaultstate="collapsed" des="Misc Conversion Methods">
+    public static int toInt(boolean pValue) {
+        return pValue ? 1 : 0;
+    }
 
+    public static boolean toBoolean(int pValue) {
+        return pValue == 0 ? false : true;
+    }
     //  </editor-fold>
 
     //  <editor-fold default-state="collapsed" desc="Toast Messaging">
@@ -82,4 +88,6 @@ public class Utilities {
         }
     }
     //  </editor-fold>
+
+
 }

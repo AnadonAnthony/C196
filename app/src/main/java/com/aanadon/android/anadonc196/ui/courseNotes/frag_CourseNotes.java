@@ -50,6 +50,8 @@ public class frag_CourseNotes extends Fragment {
 
         ButterKnife.bind(this, root);
 
+
+
         return root;
     }
 

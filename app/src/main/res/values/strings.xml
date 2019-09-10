@@ -41,6 +41,8 @@
     <string name="txtCourse">Course</string>
     <string name="txtCourseMentor">Course Mentors</string>
     <string name="title_activity_edit_course_mentor">Course Mentor</string>
+    <string name="txt_AssessmentTypePractical">Assessment Type (Practical)</string>
+    <string name="txt_AssessmentTypeObjective">Assessment Type (Objective)</string>
 
     <string-array name="CourseStates">
         <item>Planned</item>

@@ -43,6 +43,7 @@ import butterknife.OnTextChanged;
 
 public class frag_CourseInfo extends Fragment {
 
+    //  <editor-fold defaultstate="collapsed" des="Butterknife Injections">
     @BindView(R.id.txtEditCourseTitle)
     TextView _Title;
     @BindView(R.id.txtEditCourseStart)
@@ -111,6 +112,7 @@ public class frag_CourseInfo extends Fragment {
 
         _TitleOK    = Text.length() >= 2;
     }
+    //  </editor-fold>
 
     private boolean _EndOK      = false;
     private boolean _StartOK    = false;

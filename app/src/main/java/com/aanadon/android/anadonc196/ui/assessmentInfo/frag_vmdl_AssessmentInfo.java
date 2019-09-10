@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class assessInfoViewModel extends ViewModel {
+public class frag_vmdl_AssessmentInfo extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public assessInfoViewModel() {
+    public frag_vmdl_AssessmentInfo() {
         mText = new MutableLiveData<>();
         mText.setValue("This is home fragment");
     }

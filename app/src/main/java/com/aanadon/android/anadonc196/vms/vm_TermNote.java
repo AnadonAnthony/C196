@@ -19,6 +19,6 @@ public class vm_TermNote
     public vm_TermNote(@NonNull Application application) {
         super(application);
 
-        _Notes = AppRepository.getInstance(application.getApplicationContext()).TermNoteList;
+        _Notes = AppRepository.getInstance(application.getApplicationContext()).TermNotes;
     }
 }

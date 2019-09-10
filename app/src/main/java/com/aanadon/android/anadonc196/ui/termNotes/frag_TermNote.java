@@ -98,7 +98,7 @@ public class frag_TermNote extends Fragment {
         initializeRecyclerView();
         initializeViewModel();
 
-        _Repository.TermNoteList    = _Repository.fetchTermNotes(editTerm.getTermId());
+        _Repository.TermNotes = _Repository.fetchTermNotes(editTerm.getTermId());
         return root;
     }
 
@@ -116,7 +116,7 @@ public class frag_TermNote extends Fragment {
         if (!editTerm.IsNewTerm()) {
             Log.i(Constants.LOG_TAG,
                     "→\tNote List for Term: " + editTerm.getTermId());
-            _Repository.TermNoteList = _Repository.fetchTermNotes(editTerm.getTermId());
+            _Repository.TermNotes = _Repository.fetchTermNotes(editTerm.getTermId());
         }
     }
 
