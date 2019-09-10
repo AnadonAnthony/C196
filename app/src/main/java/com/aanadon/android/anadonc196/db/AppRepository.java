@@ -196,7 +196,30 @@ public class AppRepository {
     }
     //  </editor-fold>
 
+
+    public CourseNoteEntity fethCourseNote(int noteId) {
+        return _Db.CourseNoteDAO().getNote(noteId);
+    }
+
     public LiveData<List<CourseNoteEntity>> fetchCourseNotes(int courseId)  {
         return _Db.CourseNoteDAO().getNotesByCourse(courseId);
+    }
+
+    public void insertCourseNote(final CourseNoteEntity note) {
+        _Executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                _Db.CourseNoteDAO().insertNote(note);
+            }
+        });
+    }
+
+    public void deleteCourseNote(final CourseNoteEntity value) {
+        _Executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                _Db.CourseNoteDAO().deleteNote(value);
+            }
+        });
     }
 }

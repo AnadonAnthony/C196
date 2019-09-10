@@ -95,8 +95,6 @@ public class editTermNote extends AppCompatActivity {
             Note.setTermId(editTerm.getTermId());
             Note.setNoteText(_Text.getText().toString().trim());
 
-
-
             _Repository.insertTermNote(Note);
         }
     }
@@ -109,6 +107,7 @@ public class editTermNote extends AppCompatActivity {
         _NewNote        = (null == Extras);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_save);
         if (_NewNote) {
             _Date.setText(Utilities.toString(new Date()));
             _User.setText("- " + MainActivity.getUsername());
@@ -143,6 +142,7 @@ public class editTermNote extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         saveNote();
+        super.onBackPressed();
     }
 
     @Override

@@ -90,9 +90,8 @@ public class frag_TermNote extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        _ViewModel =
-                ViewModelProviders.of(this).get(vm_TermNote.class);
-        View root = inflater.inflate(R.layout.frag_term_notes, container, false);
+        _ViewModel  = ViewModelProviders.of(this).get(vm_TermNote.class);
+        View root   = inflater.inflate(R.layout.frag_term_notes, container, false);
 
         ButterKnife.bind(this, root);
         initializeRecyclerView();
@@ -118,10 +117,5 @@ public class frag_TermNote extends Fragment {
                     "→\tNote List for Term: " + editTerm.getTermId());
             _Repository.TermNotes = _Repository.fetchTermNotes(editTerm.getTermId());
         }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 }

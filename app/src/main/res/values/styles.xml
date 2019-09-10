@@ -12,6 +12,7 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:colorForeground">@color/colorWhite</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
